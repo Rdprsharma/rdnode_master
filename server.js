@@ -20,7 +20,7 @@ const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+  .connect(`mongodb+srv://rudrapratap:<Sharma@@372>@cluster0.aptacw8.mongodb.net/`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
