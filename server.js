@@ -1,7 +1,9 @@
+// server.js
 const express = require("express");
 const cors = require("cors");
-const dbConfig = require("./app/config/db.config");
 const path = require('path');
+const connectDB = require("./app/config/db.config");
+
 const app = express();
 
 var corsOptions = {
@@ -10,32 +12,15 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
 app.use(express.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 const Role = db.role;
 
-db.mongoose
-  .connect(`mongodb+srv://rudrapratap:<Sharma@@372>@cluster0.aptacw8.mongodb.net/`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log("Successfully connect to MongoDB.");
-  })
-  .catch(err => {
-    console.error("Connection error", err);
-    process.exit();
-  });
-
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to nodems application." });
-});
-
+// Connect to the database
+connectDB();
 
 require("./app/routes/auth.routes")(app);
 
